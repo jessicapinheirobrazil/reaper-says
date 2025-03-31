@@ -1,13 +1,9 @@
 import { CAUSES, SETTINGS } from "../config";
 
-export function calculateDeath(name, birthdate) {
+export function calculateDeath(name, birthdate, minDate = null) {
     const birthYear = new Date(birthdate).getFullYear();
     const currentYear = new Date().getFullYear();
     const age = currentYear - birthYear;
-
-    if (age < 0 || age > SETTINGS.maxAge) {
-        return { error: "The Reaper knows no one of this age... Please enter a valid birthdate." };
-    }
 
     const seedString = name.trim().toLowerCase() + birthdate;
     let seed = 0;
@@ -18,11 +14,18 @@ export function calculateDeath(name, birthdate) {
     const deathAge = 30 + (seed % (SETTINGS.maxAge - 30 + 1));
     const deathYear = birthYear + deathAge;
 
-    // ✅ gerar um mês aleatório (0 a 11) e um dia aleatório (1 a 28 só pra garantir)
-    const randomMonth = seed % 12; // gera 0 a 11
-    const randomDay = (seed * 7) % 28 + 1; // gera 1 a 28
+    let randomMonth = seed % 12;
+    let randomDay = (seed * 7) % 28 + 1;
 
-    const deathDate = new Date(deathYear, randomMonth, randomDay);
+    let deathDate = new Date(deathYear, randomMonth, randomDay);
+
+    // ✅ Se foi passada uma minDate (ex.: hoje) e a deathDate for menor que minDate, joga ela pro ano seguinte até passar
+    if (minDate) {
+        while (deathDate <= minDate) {
+            deathDate.setFullYear(deathDate.getFullYear() + 1);
+        }
+    }
+
     const cause = CAUSES[seed % CAUSES.length];
 
     return {

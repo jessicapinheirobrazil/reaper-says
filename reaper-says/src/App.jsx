@@ -4,10 +4,10 @@ import Result from "./components/Result";
 import { useReaperVoice } from "./hooks/useReaperVoice";
 import { useBackgroundMusic } from "./hooks/useBackgroundMusic";
 import { calculateDeath } from "./utils/deathCalculator";
+import { checkIfDead } from "./utils/checkIfDead";
 import { MESSAGES, SETTINGS } from "./config";
 import SoundButton from "./components/SoundButton";
 import Countdown from "./components/Countdown";
-/*import Header from "./components/Header";*/
 
 function App() {
   const [name, setName] = useState("");
@@ -18,7 +18,7 @@ function App() {
   const { speak } = useReaperVoice();
   const { playMusic, pauseMusic } = useBackgroundMusic();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name || !birthdate) {
       alert(MESSAGES.missingData);
       return;
@@ -29,19 +29,34 @@ function App() {
       return;
     }
 
-    const deathInfo = calculateDeath(name, birthdate);
+    const wikiCheck = await checkIfDead(name, birthdate);
 
-    if (deathInfo.error) {
-      alert(deathInfo.error);
-      return;
+    if (wikiCheck.found && wikiCheck.dead) {
+        // Já morto
+        setResult({
+            date: wikiCheck.deathDate, // <-- aqui mantemos a Date nativa sem toLocaleDateString
+            cause: "The Reaper already took this soul...",
+            isWikiDeath: true,
+        });
+        setDeathDate(null); // 👈 impede o Countdown de renderizar
+        speak(`${name} is already gone...`);
+        return;
     }
 
-    setResult(deathInfo);
-    speak(MESSAGES.resultFull(name, deathInfo.date, deathInfo.cause));
+    // Caso esteja vivo ou não encontrado
+    const today = new Date();
+    const deathInfo = calculateDeath(name, birthdate, wikiCheck.found ? today : null);
 
-    const calculatedDeathDate = new Date(deathInfo.date);
-    setDeathDate(calculatedDeathDate); 
-  };
+    setResult({
+        ...deathInfo,
+        isWikiDeath: false,
+    });
+
+    setDeathDate(deathInfo.date);
+    speak(MESSAGES.resultFull(name, deathInfo.date.toLocaleDateString(), deathInfo.cause));
+};
+
+
 
   useEffect(() => {
     const title = "Reaper Says";
@@ -81,7 +96,7 @@ function App() {
         <Result name={name} result={result} />
         <SoundButton playMusic={playMusic} pauseMusic={pauseMusic} />
         
-        {deathDate && <Countdown deathDate={deathDate} />}  
+        {deathDate && result && !result.isWikiDeath && <Countdown deathDate={deathDate} />}
       </div>
     </>
   );

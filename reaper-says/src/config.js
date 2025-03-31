@@ -46,6 +46,7 @@ export const MESSAGES = {
     missingData: "Please enter your full name and birthdate to discover your fate!",
     invalidName: "Please enter your full name.",
     invalidAge: "The Reaper knows no one of this age... Please enter a valid birthdate.",
+    deadByAge: "The Reaper says: this soul is long gone...",
     resultIntro: (name) => `${name}, your fate has been sealed.`,
     resultFull: (name, date, cause) =>
         `${name}, your fate has been sealed. Date of death: ${date}. Cause: ${cause}.`,
@@ -53,6 +54,7 @@ export const MESSAGES = {
 
 export const SETTINGS = {
     maxAge: 90,
+    autoDeadAge: 110,
     minNameWords: 2,
     bgMusicVolume: 0.02,
     laughVolume: 0.3,

@@ -64,8 +64,10 @@ function App() {
         Your browser does not support the video tag.
       </video>
 
+      <div className="background-image"></div>
+
       <div className="container">
-        <h1 class="floating-title">Reaper Says</h1>
+        <h1 className="floating-title">Reaper Says</h1>
         <p>Find out when and how you will die... if you dare.</p>
 
         <InputForm

@@ -17,12 +17,16 @@ export function calculateDeath(name, birthdate) {
 
     const deathAge = age + (seed % (90 - 30 + 1)) + 30;
     const deathYear = birthYear + deathAge;
-    const deathDate = new Date(birthdate);
-    deathDate.setFullYear(deathYear);
+
+    // ✅ gerar um mês aleatório (0 a 11) e um dia aleatório (1 a 28 só pra garantir)
+    const randomMonth = seed % 12; // gera 0 a 11
+    const randomDay = (seed * 7) % 28 + 1; // gera 1 a 28
+
+    const deathDate = new Date(deathYear, randomMonth, randomDay);
     const cause = CAUSES[seed % CAUSES.length];
 
     return {
-        date: deathDate.toLocaleDateString(),
+        date: deathDate,
         cause,
     };
 }

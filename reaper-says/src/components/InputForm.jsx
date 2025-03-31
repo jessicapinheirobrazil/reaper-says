@@ -1,4 +1,17 @@
 export default function InputForm({ name, setName, birthdate, setBirthdate, onSubmit }) {
+    const handleNameChange = (e) => {
+        // Permite apenas letras e espaços, removendo números
+        const newName = e.target.value.replace(/[0-9]/g, ''); 
+        setName(newName);
+    };
+
+    const handleKeyPress = (e) => {
+        // Impede a digitação de números
+        if (/[0-9]/.test(e.key)) {
+            e.preventDefault();  // Previne a digitação do número
+        }
+    };
+
     return (
         <div className="input-form">
             <div className="form-group">
@@ -8,7 +21,8 @@ export default function InputForm({ name, setName, birthdate, setBirthdate, onSu
                     type="text"
                     placeholder="John Doe"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={handleNameChange}
+                    onKeyPress={handleKeyPress}  // Chama a função para bloquear números na digitação
                 />
             </div>
 

@@ -1,0 +1,260 @@
+@font-face {
+    font-family: "Truetypewriter";
+    src: url("./assets/fonts/truetypewriter.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    color: #f5f5f5;
+    text-align: center;
+  }
+  
+  button {
+    background-color: #7D0002;
+  }
+  
+  .h1,
+  h1 {
+    font-size: 64px;
+    font-family: "Truetypewriter";
+    margin: 0;
+  }
+  
+  .h1.floating-title, h1.floating-title {
+    position: absolute;
+    top: -85px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 4vw;
+    font-family: "Truetypewriter", "Courier New", Courier, monospace;
+    color: #fff;
+    z-index: 10;
+    margin: 0;
+    width: 100%;
+    font-size: 100px;
+  }
+  
+  p {
+    font-size: 16px;
+  }
+  
+  .form-group {
+    text-align: left;
+  }
+  
+  label {
+    font-size: 12px;
+    text-align: left;
+  }
+  
+  
+  .bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.4) contrast(1.2);
+  }
+  
+  .container {
+    position: relative;
+    width: 80vw;
+    max-width: 600px;
+    padding: 2rem;
+    border-radius: 10px;
+    background: #000000e5;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  }
+  
+  .sound-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 9999;
+    padding: 0;
+  }
+  
+  .sound-button:hover {
+    background-color: transparent;
+  }
+  
+  input, button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  input {
+    background: #333;
+    color: #fff;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background: #7D0002;;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  button:hover {
+    background: rgb(71, 1, 1);
+  }
+  
+  /* Estilos para o header */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li {
+    font-size: 18px;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .nav-links a:hover {
+    color: #ff0000;
+  }
+  
+  .container {
+    position: relative;
+    width: 80vw;
+    max-width: 600px;
+    padding: 2rem;
+    border-radius: 10px;
+    background: #000000c5;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    text-align: center;
+    margin-top: 60px;
+  }
+  
+  /* Estilos para o header */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center; /* Alinha os itens ao centro */
+    align-items: center;
+    z-index: 20;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px; /* Espaçamento entre os links */
+  }
+  
+  .nav-links li {
+    font-size: 18px;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .nav-links a:hover {
+    color: #ff0000; /* Cor quando o link é sobrevoado */
+  }
+  
+  /* Estilos para o dropdown */
+  .language-dropdown {
+    position: relative;
+  }
+  
+  .language-dropdown .dropdown-menu {
+    display: none; /* Escondido por padrão */
+    position: absolute;
+    top: 100%; /* Posiciona o menu logo abaixo do link */
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 100;
+    width: 100px;
+    border-radius: 5px; /* Bordas arredondadas */
+  }
+  
+  .language-dropdown .dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .language-dropdown .dropdown-menu li:hover {
+    background-color: #ff0000; /* Cor quando o item do menu é sobrevoado */
+  }
+  
+  /* Exibe o dropdown quando a flag isDropdownOpen for verdadeira */
+  .language-dropdown .dropdown-menu.active {
+    display: block; /* Torna o dropdown visível */
+  }
+  
+  .container {
+    position: relative;
+    width: 80vw;
+    max-width: 600px;
+    padding: 2rem;
+    border-radius: 10px;
+    background: #000000c5;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    text-align: center;
+    margin-top: 60px; /* Deixe um espaço para o header fixo */
+  }
+  

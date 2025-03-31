@@ -15,7 +15,7 @@ export function calculateDeath(name, birthdate) {
         seed += seedString.charCodeAt(i);
     }
 
-    const deathAge = age + (seed % (90 - 30 + 1)) + 30;
+    const deathAge = 30 + (seed % (SETTINGS.maxAge - 30 + 1));
     const deathYear = birthYear + deathAge;
 
     // ✅ gerar um mês aleatório (0 a 11) e um dia aleatório (1 a 28 só pra garantir)

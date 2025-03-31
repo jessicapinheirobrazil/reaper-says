@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { intervalToDuration, differenceInSeconds, isBefore } from "date-fns";
 
 function Countdown({ deathDate }) {
   const [timeLeft, setTimeLeft] = useState("");
@@ -9,33 +10,26 @@ function Countdown({ deathDate }) {
       const now = new Date();
       const death = new Date(deathDate);
 
-      if (now >= death) {
+      if (isBefore(death, now)) {
         clearInterval(countdownInterval);
         setIsExpired(true);
         setTimeLeft("Time's up!");
         return;
       }
 
-      // Criando uma data só de diferença
-      let years = death.getFullYear() - now.getFullYear();
-      let months = death.getMonth() - now.getMonth();
-      let days = death.getDate() - now.getDate();
-      let hours = death.getHours() - now.getHours();
-      let minutes = death.getMinutes() - now.getMinutes();
-      let seconds = death.getSeconds() - now.getSeconds();
+      // diferença total em segundos
+      const totalSeconds = differenceInSeconds(death, now);
 
-      // Ajustes para evitar negativos
-      if (seconds < 0) { seconds += 60; minutes--; }
-      if (minutes < 0) { minutes += 60; hours--; }
-      if (hours < 0) { hours += 24; days--; }
-      if (days < 0) { 
-        const prevMonth = new Date(death.getFullYear(), death.getMonth(), 0).getDate();
-        days += prevMonth; 
-        months--; 
-      }
-      if (months < 0) { months += 12; years--; }
+      // converter em anos, meses, dias, horas, minutos, segundos
+      const duration = intervalToDuration({ start: now, end: death });
 
-      setTimeLeft(`${years}y ${months}m ${days}d ${hours}h ${minutes}m ${seconds}s`);
+      // se faltar menos de 1 dia, duration.days pode não vir definido
+      const days = duration.days || 0;
+      const hours = duration.hours || 0;
+      const minutes = duration.minutes || 0;
+      const seconds = duration.seconds || 0;
+
+      setTimeLeft(`${duration.years}y ${duration.months}m ${days}d ${hours}h ${minutes}m ${seconds}s`);
     }, 1000);
 
     return () => clearInterval(countdownInterval);
